@@ -1,0 +1,68 @@
+{
+    "section1": {
+        "files": [
+            {
+                "url": "assets/images/bg.png",
+                "type": "image",
+                "key": "bg"
+            },
+            {
+                "url": "assets/images/bullet.png",
+                "type": "image",
+                "key": "bullet"
+            },
+            {
+                "url": "assets/images/bullet-trail.png",
+                "type": "image",
+                "key": "bullet-trail"
+            },
+            {
+                "url": "assets/images/enemy.png",
+                "type": "image",
+                "key": "enemy"
+            },
+            {
+                "url": "assets/images/explosion-huge.png",
+                "type": "image",
+                "key": "explosion-huge"
+            },
+            {
+                "url": "assets/images/gamePlayBg.png",
+                "type": "image",
+                "key": "gamePlayBg"
+            },
+            {
+                "url": "assets/images/player.png",
+                "type": "image",
+                "key": "player"
+            },
+            {
+                "url": "assets/images/polygon.png",
+                "type": "image",
+                "key": "polygon"
+            },
+            {
+                "url": "assets/images/replayBtn.png",
+                "type": "image",
+                "key": "replayBtn"
+            },
+            {
+                "url": "assets/images/spark.png",
+                "type": "image",
+                "key": "spark"
+            },
+            {
+                "url": "assets/images/transparent-bg.png",
+                "type": "image",
+                "key": "transparent-bg"
+            }
+        ]
+    },
+    "meta": {
+        "app": "Phaser Editor 2D - Asset Pack Editor",
+        "contentType": "phasereditor2d.pack.core.AssetContentType",
+        "url": "https://phasereditor2d.com",
+        "version": 2,
+        "showAllFilesInBlocks": false
+    }
+}
