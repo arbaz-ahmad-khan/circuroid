@@ -25,22 +25,6 @@
             "alphaBottomRight": 0.2
         },
         {
-            "type": "Image",
-            "id": "0a22d3c5-bdf8-421d-8d2a-866a0bec2284",
-            "label": "bg",
-            "texture": {
-                "key": "bg"
-            },
-            "x": 540,
-            "y": 960,
-            "visible": false,
-            "alpha": 0.8,
-            "alphaTopLeft": 0.8,
-            "alphaTopRight": 0.8,
-            "alphaBottomLeft": 0.8,
-            "alphaBottomRight": 0.8
-        },
-        {
             "type": "Container",
             "id": "a37dd9f7-a122-4060-9558-8419d044b4da",
             "label": "container_polygonTween",
@@ -186,10 +170,24 @@
             "y": 960,
             "originX": 0.5,
             "originY": 0.5,
-            "text": "0",
+            "visible": false,
+            "text": "Destroy all the Asteroids",
             "fontFamily": "Arial",
-            "fontSize": "120px",
+            "fontSize": "70px",
             "fontStyle": "bold"
+        },
+        {
+            "type": "Text",
+            "id": "142c4c05-36c5-444d-b3e1-9d2bcc1983a1",
+            "label": "text_guide",
+            "scope": "CLASS",
+            "x": 540,
+            "y": 1600,
+            "originX": 0.5,
+            "originY": 0.5,
+            "text": "Click and HOLD to Move",
+            "fontFamily": "Arial",
+            "fontSize": "70px"
         }
     ],
     "plainObjects": [],

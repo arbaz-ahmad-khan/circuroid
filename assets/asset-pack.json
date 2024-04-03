@@ -2,11 +2,6 @@
     "section1": {
         "files": [
             {
-                "url": "assets/images/bg.png",
-                "type": "image",
-                "key": "bg"
-            },
-            {
                 "url": "assets/images/bullet.png",
                 "type": "image",
                 "key": "bullet"
@@ -50,6 +45,11 @@
                 "url": "assets/images/spark.png",
                 "type": "image",
                 "key": "spark"
+            },
+            {
+                "url": "assets/images/tap.png",
+                "type": "image",
+                "key": "tap"
             },
             {
                 "url": "assets/images/transparent-bg.png",

@@ -24,15 +24,6 @@ class Level extends Phaser.Scene {
 		gamePlayBg.alphaBottomLeft = 0.2;
 		gamePlayBg.alphaBottomRight = 0.2;
 
-		// bg
-		const bg = this.add.image(540, 960, "bg");
-		bg.visible = false;
-		bg.alpha = 0.8;
-		bg.alphaTopLeft = 0.8;
-		bg.alphaTopRight = 0.8;
-		bg.alphaBottomLeft = 0.8;
-		bg.alphaBottomRight = 0.8;
-
 		// container_polygonTween
 		const container_polygonTween = this.add.container(540, 960);
 
@@ -110,8 +101,15 @@ class Level extends Phaser.Scene {
 		// text_score
 		const text_score = this.add.text(540, 960, "", {});
 		text_score.setOrigin(0.5, 0.5);
-		text_score.text = "0";
-		text_score.setStyle({ "fontFamily": "Arial", "fontSize": "120px", "fontStyle": "bold" });
+		text_score.visible = false;
+		text_score.text = "Destroy all the Asteroids";
+		text_score.setStyle({ "fontFamily": "Arial", "fontSize": "70px", "fontStyle": "bold" });
+
+		// text_guide
+		const text_guide = this.add.text(540, 1600, "", {});
+		text_guide.setOrigin(0.5, 0.5);
+		text_guide.text = "Click and HOLD to Move";
+		text_guide.setStyle({ "fontFamily": "Arial", "fontSize": "70px" });
 
 		this.polygon_4 = polygon_4;
 		this.polygon_1 = polygon_1;
@@ -122,6 +120,7 @@ class Level extends Phaser.Scene {
 		this.replayBtn = replayBtn;
 		this.container_gameOver = container_gameOver;
 		this.text_score = text_score;
+		this.text_guide = text_guide;
 
 		this.events.emit("scene-awake");
 	}
@@ -144,6 +143,8 @@ class Level extends Phaser.Scene {
 	container_gameOver;
 	/** @type {Phaser.GameObjects.Text} */
 	text_score;
+	/** @type {Phaser.GameObjects.Text} */
+	text_guide;
 
 	/* START-USER-CODE */
 
@@ -172,23 +173,37 @@ class Level extends Phaser.Scene {
 		this.graphics.lineStyle(3, 0xa361f7);
 		this.graphics.strokeCircle(540, 960, this.radius);
 
-		// this.player = this.add.sprite(540 + this.radius, 960, 'player');
 		this.player = this.add.sprite(160 + this.radius, 1400, 'player');
 		this.player.setOrigin(0.5, 0.1)
 		this.player.setDepth(1);
 		this.player.setInteractive();
 
-		this.spawnEnemyInterval = setInterval(() => {
-			this.spawnEnemy();
-		}, Phaser.Math.Between(2000, 3000));
+		//tap
+		this.tap = this.add.sprite(this.player.x, this.player.y + 100, 'tap');
+		this.tap.setScale(0.2);
+		this.tap.setDepth(2);
 
-		this.spawnEnemyInterval2 = setInterval(() => {
-			this.spawnEnemy();
-		}, Phaser.Math.Between(4000, 5000));
+		let spawnIntervalStarted = false;
 
-		this.spawnEnemyInterval3 = setInterval(() => {
-			this.spawnEnemy();
-		}, Phaser.Math.Between(10000, 15000));
+		this.input.on('pointerdown', () => {
+			if (!spawnIntervalStarted) {
+				this.spawnEnemyInterval = setInterval(() => {
+					this.spawnEnemy();
+				}, Phaser.Math.Between(1600, 2500));
+
+				this.spawnEnemyInterval2 = setInterval(() => {
+					this.spawnEnemy();
+				}, Phaser.Math.Between(4000, 5000));
+
+				this.spawnEnemyInterval3 = setInterval(() => {
+					this.spawnEnemy();
+				}, Phaser.Math.Between(10000, 15000));
+
+				spawnIntervalStarted = true;
+
+				this.text_score.setVisible(true);
+			}
+		});
 
 		this.player.on('pointerdown', this.startMoving, this);
 		this.input.on('pointerup', this.stopMoving, this);
@@ -233,10 +248,13 @@ class Level extends Phaser.Scene {
 
 	startMoving() {
 		this.isMoving = true;
+		this.text_guide.setVisible(false);
+		this.tap.setVisible(false);
 	}
 
 	stopMoving() {
 		this.isMoving = false;
+		this.text_guide.setVisible(true);
 	}
 
 	movePlayer(pointer) {
@@ -334,8 +352,8 @@ class Level extends Phaser.Scene {
 	}
 
 	gameOver() {
-		// console.log("Game Over!");
 		this.isGameOver = true;
+		this.text_guide.setVisible(false);
 		this.cameras.main.shake(500, 0.03);
 		this.physics.pause();
 		clearInterval(this.spawnEnemyInterval);
@@ -363,9 +381,9 @@ class Level extends Phaser.Scene {
 		return explosionParticles;
 	}
 
-	bulletBlastParticles = ({ x, y }, quantity = 8) => {
+	bulletBlastParticles = ({ x, y }, quantity = 12) => {
 		const blastParticle = this.add.particles(x, y, 'spark', {
-			quantity: 8,
+			quantity: 12,
 			maxParticles: quantity,
 			speed: 120,
 			scale: { start: 1, end: 0 },
@@ -378,7 +396,7 @@ class Level extends Phaser.Scene {
 	}
 
 	createBulletTrailParticles(bullet) {
-		const bulletTrailParticles = this.add.particles(0,0, 'bullet-trail', {
+		const bulletTrailParticles = this.add.particles(0, 0, 'bullet-trail', {
 			speed: { min: -100, max: 100 },
 			scale: { start: 1, end: 0 },
 			blendMode: 'ADD',
